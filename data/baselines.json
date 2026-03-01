@@ -1,0 +1,320 @@
+{
+    "models": [
+        {
+            "name": "Toyota Land Cruiser 300",
+            "patterns": [
+                "land ?cruiser",
+                "lc ?300",
+                "lc300"
+            ],
+            "baseline": 310000,
+            "modifiers": [
+                {
+                    "pattern": "vxr",
+                    "weight": 1.15,
+                    "label": "VXR trim"
+                },
+                {
+                    "pattern": "gxr",
+                    "weight": 1.05,
+                    "label": "GXR trim"
+                },
+                {
+                    "pattern": "twin.?turbo",
+                    "weight": 1.20,
+                    "label": "twin turbo"
+                },
+                {
+                    "pattern": "accident",
+                    "weight": 0.70,
+                    "label": "accident history"
+                },
+                {
+                    "pattern": "repaint",
+                    "weight": 0.85,
+                    "label": "repainted"
+                }
+            ],
+            "mileage_brackets": [
+                {
+                    "max_km": 30000,
+                    "penalty": 0.00
+                },
+                {
+                    "max_km": 80000,
+                    "penalty": 0.10
+                },
+                {
+                    "max_km": 150000,
+                    "penalty": 0.20
+                },
+                {
+                    "max_km": 999999,
+                    "penalty": 0.30
+                }
+            ]
+        },
+        {
+            "name": "Toyota Land Cruiser 200",
+            "patterns": [
+                "land ?cruiser.+200",
+                "lc ?200",
+                "lc200"
+            ],
+            "baseline": 180000,
+            "modifiers": [
+                {
+                    "pattern": "vxr",
+                    "weight": 1.15,
+                    "label": "VXR trim"
+                },
+                {
+                    "pattern": "gxr",
+                    "weight": 1.05,
+                    "label": "GXR trim"
+                },
+                {
+                    "pattern": "accident",
+                    "weight": 0.70,
+                    "label": "accident history"
+                }
+            ],
+            "mileage_brackets": [
+                {
+                    "max_km": 50000,
+                    "penalty": 0.00
+                },
+                {
+                    "max_km": 120000,
+                    "penalty": 0.15
+                },
+                {
+                    "max_km": 999999,
+                    "penalty": 0.25
+                }
+            ]
+        },
+        {
+            "name": "Nissan Patrol",
+            "patterns": [
+                "patrol",
+                "vtc",
+                "nismo.?patrol"
+            ],
+            "baseline": 220000,
+            "modifiers": [
+                {
+                    "pattern": "nismo",
+                    "weight": 1.30,
+                    "label": "NISMO"
+                },
+                {
+                    "pattern": "platinum",
+                    "weight": 1.10,
+                    "label": "Platinum"
+                },
+                {
+                    "pattern": "accident",
+                    "weight": 0.70,
+                    "label": "accident history"
+                }
+            ],
+            "mileage_brackets": [
+                {
+                    "max_km": 40000,
+                    "penalty": 0.00
+                },
+                {
+                    "max_km": 100000,
+                    "penalty": 0.12
+                },
+                {
+                    "max_km": 999999,
+                    "penalty": 0.25
+                }
+            ]
+        },
+        {
+            "name": "Lexus LX 600",
+            "patterns": [
+                "lx ?600",
+                "lexus.+lx"
+            ],
+            "baseline": 350000,
+            "modifiers": [
+                {
+                    "pattern": "f.?sport",
+                    "weight": 1.10,
+                    "label": "F-Sport"
+                },
+                {
+                    "pattern": "ultra.?luxury",
+                    "weight": 1.15,
+                    "label": "Ultra Luxury"
+                },
+                {
+                    "pattern": "accident",
+                    "weight": 0.70,
+                    "label": "accident history"
+                }
+            ],
+            "mileage_brackets": [
+                {
+                    "max_km": 30000,
+                    "penalty": 0.00
+                },
+                {
+                    "max_km": 80000,
+                    "penalty": 0.10
+                },
+                {
+                    "max_km": 999999,
+                    "penalty": 0.22
+                }
+            ]
+        },
+        {
+            "name": "Mercedes G-Class",
+            "patterns": [
+                "g ?63",
+                "g ?wagon",
+                "g.?class",
+                "amg.?g"
+            ],
+            "baseline": 550000,
+            "modifiers": [
+                {
+                    "pattern": "amg",
+                    "weight": 1.10,
+                    "label": "AMG"
+                },
+                {
+                    "pattern": "brabus",
+                    "weight": 1.40,
+                    "label": "Brabus"
+                },
+                {
+                    "pattern": "accident",
+                    "weight": 0.65,
+                    "label": "accident history"
+                }
+            ],
+            "mileage_brackets": [
+                {
+                    "max_km": 20000,
+                    "penalty": 0.00
+                },
+                {
+                    "max_km": 60000,
+                    "penalty": 0.12
+                },
+                {
+                    "max_km": 999999,
+                    "penalty": 0.25
+                }
+            ]
+        },
+        {
+            "name": "Range Rover",
+            "patterns": [
+                "range ?rover",
+                "rr.?vogue",
+                "autobiography"
+            ],
+            "baseline": 380000,
+            "modifiers": [
+                {
+                    "pattern": "autobiography",
+                    "weight": 1.15,
+                    "label": "Autobiography"
+                },
+                {
+                    "pattern": "svr",
+                    "weight": 1.20,
+                    "label": "SVR"
+                },
+                {
+                    "pattern": "accident",
+                    "weight": 0.70,
+                    "label": "accident history"
+                }
+            ],
+            "mileage_brackets": [
+                {
+                    "max_km": 30000,
+                    "penalty": 0.00
+                },
+                {
+                    "max_km": 80000,
+                    "penalty": 0.15
+                },
+                {
+                    "max_km": 999999,
+                    "penalty": 0.28
+                }
+            ]
+        },
+        {
+            "name": "Rolex Submariner",
+            "patterns": [
+                "submariner",
+                "sub.?mariner"
+            ],
+            "baseline": 55000,
+            "modifiers": [
+                {
+                    "pattern": "no.?date",
+                    "weight": 0.95,
+                    "label": "no-date"
+                },
+                {
+                    "pattern": "hulk",
+                    "weight": 1.25,
+                    "label": "Hulk"
+                },
+                {
+                    "pattern": "kermit",
+                    "weight": 1.15,
+                    "label": "Kermit"
+                },
+                {
+                    "pattern": "steel",
+                    "weight": 1.00,
+                    "label": "steel"
+                },
+                {
+                    "pattern": "gold",
+                    "weight": 1.80,
+                    "label": "gold"
+                }
+            ],
+            "mileage_brackets": []
+        },
+        {
+            "name": "Rolex Daytona",
+            "patterns": [
+                "daytona",
+                "cosmograph"
+            ],
+            "baseline": 95000,
+            "modifiers": [
+                {
+                    "pattern": "panda",
+                    "weight": 1.20,
+                    "label": "panda dial"
+                },
+                {
+                    "pattern": "steel",
+                    "weight": 1.00,
+                    "label": "steel"
+                },
+                {
+                    "pattern": "gold",
+                    "weight": 1.60,
+                    "label": "gold"
+                }
+            ],
+            "mileage_brackets": []
+        }
+    ]
+}
