@@ -28,7 +28,7 @@ using Clock = std::chrono::high_resolution_clock;
 
 // ─── Configuration ──────────────────────────────────────────
 
-static constexpr int PORT = 8002;
+// Dynamic port detection via std::getenv in main()
 static constexpr int TELEGRAM_RETRY_MAX = 3;
 static constexpr int TELEGRAM_RETRY_DELAY_MS = 2000;
 
@@ -484,8 +484,13 @@ int main() {
                     "application/json");
   });
 
-  std::cout << "[FILTER] Listening on port " << PORT << "\n";
-  svr.listen("0.0.0.0", PORT);
+  const int port = [] {
+    const char *env = std::getenv("PORT");
+    return env ? std::stoi(env) : 8002;
+  }();
+
+  std::cout << "[FILTER] Listening on port " << port << "\n";
+  svr.listen("0.0.0.0", port);
 
   return 0;
 }
