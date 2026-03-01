@@ -5,15 +5,54 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 SALES_BOT_TOKEN = os.getenv("SALES_BOT_TOKEN", "")
 ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID", "7340549633"))
 VIP_GROUP_ID = os.getenv("VIP_GROUP_ID", "-1002488088068")
+STRIPE_PAYMENT_URL = os.getenv("STRIPE_PAYMENT_URL", "https://buy.stripe.com/test_fyc5kx0Wk8Wk8Wk8Wk")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     welcome_text = (
-        "🏎️ Welcome to Doha Deal Sniper VIP! 🏎️\n\n"
+        "🏎️ **Welcome to Doha Deal Sniper VIP!** 🏎️\n\n"
         "Get instant alerts for the best car deals in Qatar before anyone else sees them.\n\n"
-        "💳 Subscription: 150 QAR / month\n"
-        "To subscribe, please purchase an Ooredoo voucher for 150 QAR and reply with the code here."
+        "💳 **Subscription**: 150 QAR / month\n"
+        "Ready to join the elite? Use the button below to subscribe securely via Stripe!"
     )
-    await update.message.reply_text(welcome_text)
+    keyboard = [
+        [InlineKeyboardButton("💳 Pay via Stripe", url=STRIPE_PAYMENT_URL)],
+        [InlineKeyboardButton("✅ I've Paid! Join Group", callback_data="request_invite")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode="Markdown")
+
+async def request_invite(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    
+    user = query.from_user
+    username = user.username or user.first_name
+    
+    # Notify Admin that someone says they paid
+    keyboard = [
+        [
+            InlineKeyboardButton("✅ Send Invite Link", callback_data=f"approve_{user.id}"),
+            InlineKeyboardButton("❌ Reject", callback_data=f"reject_{user.id}")
+        ]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    await context.bot.send_message(
+        chat_id=ADMIN_CHAT_ID,
+        text=(
+            f"💰 **New Subscription Checkout!**\n\n"
+            f"👤 **User**: @{username}\n"
+            f"🆔 **ID**: `{user.id}`\n\n"
+            f"They claim to have finished the Stripe payment. Check your Stripe Dashboard and send them the link if it's there!"
+        ),
+        reply_markup=reply_markup,
+        parse_mode="Markdown"
+    )
+    
+    await query.message.reply_text(
+        "⏳ **Hold tight!**\n\n"
+        "I've notified our team. Once we see your payment in our Stripe dashboard, I'll send you your exclusive invite link right here!"
+    )
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message or not update.message.text: return
@@ -73,8 +112,8 @@ async def setup_sales_bot():
     try:
         app = ApplicationBuilder().token(SALES_BOT_TOKEN).build()
         app.add_handler(CommandHandler("start", start))
-        app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-        app.add_handler(CallbackQueryHandler(button_handler))
+        app.add_handler(CallbackQueryHandler(request_invite, pattern="^request_invite$"))
+        app.add_handler(CallbackQueryHandler(button_handler, pattern="^(approve|reject)_"))
         
         # We do NOT await app.initialize() here to avoid crashing on DNS issues.
         # We will initialize it lazily when the first webhook arrives.
