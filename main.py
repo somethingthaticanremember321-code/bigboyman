@@ -53,7 +53,13 @@ async def setup_webhooks_persistent():
         if not sales_bot_app: break
         
         await asyncio.sleep(delay)
-        space_url = os.getenv("SPACE_URL", "https://zyadthecreator-doacck.hf.space")
+        # Auto-detect URL from Railway or fallback to SPACE_URL
+        railway_url = os.getenv("RAILWAY_PUBLIC_DOMAIN")
+        if railway_url:
+            space_url = f"https://{railway_url}"
+        else:
+            space_url = os.getenv("SPACE_URL", "https://zyadthecreator-doacck.hf.space")
+            
         webhook_url = f"{space_url}/tg-webhook"
         
         try:
