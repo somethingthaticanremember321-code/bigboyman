@@ -177,7 +177,28 @@ from fastapi.responses import HTMLResponse
 
 @app.get("/", response_class=HTMLResponse)
 def health():
-    return "<h1>🚀 Doha Arbitrage Cloud Engine is LIVE!</h1><p>Waiting for deals...</p><br><a href='/debug/network'>[Run Network Diagnostic]</a>"
+    return """
+    <h1>🚀 Doha Arbitrage Cloud Engine is LIVE!</h1>
+    <p>Waiting for deals...</p>
+    <br>
+    <a href='/debug/test-deal' style='padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;'>[🚀 Send Test Deal to Group]</a>
+    <br><br>
+    <a href='/debug/network'>[Run Network Diagnostic]</a>
+    """
+
+@app.get("/debug/test-deal")
+async def test_deal(background_tasks: BackgroundTasks):
+    """Triggers a high-quality sample deal to verify the whole system."""
+    sample_deal = {
+        "title": "Porsche 911 GT3 (992) - Like New",
+        "price": "750000",
+        "model_year": 2024,
+        "mileage_km": 1500,
+        "url": "https://www.qatarsale.com/en/cars/porsche/911/911_gt3/750000",
+        "source": "manual_test"
+    }
+    background_tasks.add_task(broadcast_deal, sample_deal)
+    return {"status": "triggered", "message": "A high-quality 911 GT3 test deal has been sent to your group and admin DM!"}
 
 @app.get("/debug/network")
 async def debug_network():
