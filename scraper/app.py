@@ -29,7 +29,7 @@ MAX_SEEN_IDS = 2000  # FIFO cap
 MARKETPLACE_URL = os.getenv("MARKETPLACE_URL", "https://www.facebook.com/marketplace/doha/vehicles")
 PROXY_URL = os.getenv("PROXY_URL", "")
 FILTER_URL = os.getenv("FILTER_URL", "http://filter:8002/filter")
-SCRAPE_INTERVAL_MINS = int(os.getenv("SCRAPE_INTERVAL_MINS", "30"))
+SCRAPE_INTERVAL_MINS = int(os.getenv("SCRAPE_INTERVAL_MINS", "3"))
 
 UA_POOL = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
